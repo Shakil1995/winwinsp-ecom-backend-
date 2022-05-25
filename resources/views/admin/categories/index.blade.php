@@ -3,12 +3,13 @@
 @section('content')
 
 
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">  Categories List </h1>
+          <h1 class="m-0">  Categories   List </h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -20,8 +21,6 @@
     </div><!-- /.container-fluid -->
   </div>
  <a href="{{ route('categories.create') }}"  class="btn btn-success mb-3">Add Category</a>
-
-
 
 <table id="datatable" class="display table-sm table-bordered " style="width:100%">
     <thead>
@@ -40,27 +39,38 @@
       
             <td>{{ $category->name}}</td>
             <td>
-                <form action="{{ route('category.changeStatus') }}" method="post">
-                    @csrf
-                    @method('GET')
-                        @if ($category->is_active == 1)
-                        <a class="btn btn-success" href="#"> Active</a>
-                        @else
-                        <a class="btn btn-danger" href="#"> Inactive</a>
-                        @endif
-            </form>
+              <form action="{{ route('categories.toggleStatus',$category->id) }}" method="post">
+                @csrf
+                @method('GET')
+
+                    @if ($category['is_active'] == 1)
+                        <button type="submit" class="btn btn-success">Active</button>
+                    @else
+                        <button type="submit" class="btn btn-danger">Inactive</button>
+                    @endif
+
+                </form>
             </td>
             <td>
-                <div class="btn-group" role="group">
+                {{-- <div class="btn-group" role="group">
                     <a href="#"class="btn btn-primary me-1"> <i class="fa fa-eye"></i></a>
                     <a href="#" class="btn btn-info me-1"> <i class="fa fa-edit"></i></a>
-                    <form action="#" method="post">
+                    <form action="{{ route('categories.destroy',$category->id) }}" method="post">
                         @csrf
                         @method('DELETE')
 
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Delete entry?')"><i class="fa fa-trash"></i></button>
                     </form>
-                </div>
+                </div> --}}
+                <div class="btn-group" role="group">
+                  <a href="#"class="btn btn-primary me-1"> <i class="fa fa-eye"></i></a>
+                  <a href="#" class="btn btn-info me-1"> <i class="fa fa-edit"></i></a>
+                  <form action="#" method="post">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger" onclick="return confirm('Delete entry?')"><i class="fa fa-trash"></i></button>
+                  </form>
+              </div>
             </td>
         </tr>
     @endforeach

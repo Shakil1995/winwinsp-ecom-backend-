@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -18,13 +19,21 @@ class CategoryController extends Controller
   
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
    
     public function store(Request $request)
     {
-        //
+        $category = new Category; 
+
+        //  dd($category);
+                $category->name = $request->name;
+                $category->slug = Str::slug($request->name);
+        
+                $category->save();
+                
+                return redirect()->route('categories.index');
     }
 
    
@@ -48,15 +57,19 @@ class CategoryController extends Controller
    
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        
+        return redirect()->route('admin.categories.index');
     }
 
-    public function ChangeStatus(Request $request)
+    public function toggleStatus(Category $category)
     {
-    $category = Category::find($request->category_id);
-        $category->is_active = $request->status;
-        $category->save();
+        // return $category;
+        $category->is_active = !$category->is_active;
+        
 
-        return response()->json(['success' => 'Category Active Status Change Successfully.']);
+        $category->update();
+        flash('Category Status Change Successfully ')->success();
+        return redirect()->route('categories.index');
     }
 }

@@ -22,5 +22,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('category/change-status', [CategoryController::class, 'ChangeStatus'])->name('category.changeStatus');
+Route::get('category/{category}/change-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggleStatus');
+
 Route::resource('categories',CategoryController::class);
