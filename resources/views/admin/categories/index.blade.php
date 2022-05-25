@@ -27,6 +27,7 @@
         <tr class="text-center">
             <th>SL NO</th>
             <th>Category Name</th>
+            <th>CreatedBy</th>
             <th>Satatus</th>
             <th>Action</th>
             
@@ -38,6 +39,13 @@
             <td>{{ ++$key }}</td>
       
             <td>{{ $category->name}}</td>
+            <td>
+              @if (!empty($category->users->name))
+                  {{ $category->users->name }}
+              @else
+                  <span>No Creator Found</span>
+              @endif
+          </td>
             <td>
               <form action="{{ route('categories.toggleStatus',$category->id) }}" method="post">
                 @csrf
@@ -63,9 +71,9 @@
                     </form>
                 </div> --}}
                 <div class="btn-group" role="group">
-                  <a href="#"class="btn btn-primary me-1"> <i class="fa fa-eye"></i></a>
-                  <a href="#" class="btn btn-info me-1"> <i class="fa fa-edit"></i></a>
-                  <form action="#" method="post">
+                  <a href="{{ route('categories.show', $category->id) }}"class="btn btn-primary me-1"> <i class="fa fa-eye"></i></a>
+                  <a href="{{ route('categories.edit', $category->id) }}"  class="btn btn-success me-1"><i class="fa fa-edit"></i></a>
+                  <form action="{{ route('categories.destroy', $category->id) }}" method="post">
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="btn btn-danger" onclick="return confirm('Delete entry?')"><i class="fa fa-trash"></i></button>

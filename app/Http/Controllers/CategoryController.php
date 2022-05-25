@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    
+    private $_getColumns = (['id', 'name',  'user_id', 'is_active']);
+
     public function index()
     {
-        $viewBag['categories'] = Category::orderBy('id','desc')->get();
+        $viewBag['categories']= Category::with('users')->orderBy('id', 'ASC')->get($this->_getColumns);
         
         return view('admin.categories.index', $viewBag);
     }
@@ -27,49 +28,61 @@ class CategoryController extends Controller
     {
         $category = new Category; 
 
-        //  dd($category);
-                $category->name = $request->name;
-                $category->slug = Str::slug($request->name);
-        
-                $category->save();
-                
-                return redirect()->route('categories.index');
+         $category->user_id = auth()->id();
+         $category->name = $request->name;
+         $category->slug = Str::slug($request->name);
+    
+         $category->save();
+         flash('New Category Create Successfully ')->success();  
+
+        return redirect()->route('categories.index');
     }
 
    
     public function show(Category $category)
     {
-        //
+        return view('admin.categories.show', compact('category'));
     }
 
   
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
   
     public function update(Request $request, Category $category)
     {
-        //
+        // dd($category);
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->user_id = auth()->id();
+
+        $category->update();
+
+        flash('Category Update Successfully ')->success();
+
+        return redirect()->route('categories.index');
     }
 
    
     public function destroy(Category $category)
     {
         $category->delete();
-        
-        return redirect()->route('admin.categories.index');
+
+        flash('Category Delete Successfully ')->success();
+
+        return redirect()->route('categories.index');
     }
 
     public function toggleStatus(Category $category)
     {
-        // return $category;
+      
         $category->is_active = !$category->is_active;
-        
-
         $category->update();
+
         flash('Category Status Change Successfully ')->success();
+
         return redirect()->route('categories.index');
     }
 }
