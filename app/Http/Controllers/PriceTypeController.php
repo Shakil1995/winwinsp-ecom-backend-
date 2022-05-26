@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\PriceType;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PriceTypeController extends Controller
@@ -26,37 +27,33 @@ class PriceTypeController extends Controller
         return view('admin.price-type.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
-        //
+        $priceType = new PriceType; 
+
+        $priceType->user_id = auth()->id();
+        $priceType->name = $request->name;
+        $priceType->slug = Str::slug($request->name);
+   
+        $priceType->save();
+        flash('New Price Type Add Successfully ')->success();  
+
+       return redirect()->route('priceType.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PriceType  $priceType
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show(PriceType $priceType)
     {
-        return view('admin.price-type.show');
+        $viewBag['pType']= $priceType;
+        return view('admin.price-type.show',$viewBag);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PriceType  $priceType
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function edit(PriceType $priceType)
     {
-        return view('admin.price-type.edit');
+        $viewBag['pType']= $priceType;
+        return view('admin.price-type.edit',$viewBag);
     }
 
     /**
@@ -68,17 +65,35 @@ class PriceTypeController extends Controller
      */
     public function update(Request $request, PriceType $priceType)
     {
-        //
+ 
+        $priceType->name = $request->name;
+        $priceType->slug = Str::slug($request->name);
+        $priceType->user_id = auth()->id();
+
+        $priceType->update();
+
+        flash('PriceType Update Successfully ')->success();
+
+        return redirect()->route('priceType.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PriceType  $priceType
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(PriceType $priceType)
     {
-        //
+        $priceType->delete();
+
+        flash('Price Type Delete Successfully ')->success();
+
+        return redirect()->route('priceType.index');
+    }
+
+    public function toggleStatus(PriceType $priceType)
+    {
+        $priceType->is_active = !$priceType->is_active;
+        $priceType->update();
+
+        flash('Price Type  Status Change Successfully ')->success();
+
+        return redirect()->route('priceType.index');
     }
 }

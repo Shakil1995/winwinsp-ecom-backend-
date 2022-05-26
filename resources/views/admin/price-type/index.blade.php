@@ -47,7 +47,7 @@
               @endif
           </td>
             <td>
-              <form action="{{ route('categories.toggleStatus',$ptype->id) }}" method="post">
+              <form action="{{ route('priceType.toggleStatus',$ptype->id) }}" method="post">
                 @csrf
                 @method('GET')
 
@@ -77,5 +77,5 @@
   
 </table>
 
-
 @endsection
+

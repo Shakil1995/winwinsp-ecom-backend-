@@ -25,7 +25,7 @@
           <div class="card-header">
             <h3 class="card-title">Create Price Type</h3>
           </div>
-          <form  method="post" action="{{ route('categories.store') }}" >
+          <form  method="post" action="{{ route('priceType.store') }}" >
             @csrf
             <div class="card-body">
               <div class="form-group">

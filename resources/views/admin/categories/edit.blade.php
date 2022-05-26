@@ -25,7 +25,7 @@
           <div class="card-header">
             <h3 class="card-title">Update Category</h3>
           </div>
-          <form method="post" action="{{ route('categories.update', $category->id) }}" >
+          <form method="post" action="{{  route('categories.update', $category->id) }}" >
             @csrf
             @method('PATCH')
 

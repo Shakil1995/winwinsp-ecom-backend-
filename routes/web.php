@@ -4,16 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PriceTypeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,5 +30,5 @@ Route::controller(PriceTypeController::class)->prefix('price-types')->as('priceT
 
     Route::get('/{priceType}/show', 'show')->name('show');
     Route::get('/{priceType}/edit', 'edit')->name('edit');
-    Route::get('/change-status', 'changeStatus')->name('changeStatus');
+    Route::get('/{priceType}/change-status', 'toggleStatus')->name('toggleStatus');
 });
