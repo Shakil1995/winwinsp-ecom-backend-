@@ -94,3 +94,26 @@ $('.sa-delete').on('click',function(){
   });
   })
   </script>
+
+
+
+
+
+
+
+@push('scripts')
+    <script type="text/javascript">
+        // Upload Image Preview
+        $(document).ready(function (e) {
+            //add more fields group
+            $(".addMore").click(function(){
+                    var fieldHTML='<div class="row prices p-3" style="margin-top:5px!important">'
+                    +$(".pricesCopy").html()+'</div>';
+                    $('body').find('.prices:last').after(fieldHTML);
+                });
+            //remove fields group
+            $("body").on("click",".remove",function(){
+                    $(this).parents(".prices").remove();
+                });
+        });
+    </script>
