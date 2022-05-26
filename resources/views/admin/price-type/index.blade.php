@@ -66,16 +66,19 @@
                   <form action="{{ route('priceType.destroy', $ptype->id) }}" method="post">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-danger" onclick="return confirm('Delete entry?')"><i class="fa fa-trash"></i></button>
+                      <button type="submit" class="btn btn-danger"  onclick="return confirm('Delete entry?')"><i class="fa fa-trash"></i></button>
                   </form>
               </div>
             </td>
         </tr>
-    @endforeach
+    @endforeach 
           
     </tbody>
   
 </table>
+
+
+
 
 @endsection
 
