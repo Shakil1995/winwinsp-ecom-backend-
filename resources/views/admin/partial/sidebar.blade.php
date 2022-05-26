@@ -64,6 +64,31 @@
             </li>
           </ul>
         </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-pie"></i>
+            <p>
+              Price
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('priceType.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All Price Type </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('priceType.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Delete Priype</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
       
         <li class="nav-header">LABELS</li>
         <li class="nav-item">

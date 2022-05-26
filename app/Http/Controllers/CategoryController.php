@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\Category\StoreCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -24,7 +25,7 @@ class CategoryController extends Controller
     }
 
    
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         $category = new Category; 
 
