@@ -117,3 +117,102 @@ $('.sa-delete').on('click',function(){
                 });
         });
     </script>
+
+
+<script>
+     $(document).ready(function(){
+            //-- Click on detail
+            $("ul.menu-items > li").on("click",function(){
+                $("ul.menu-items > li").removeClass("active");
+                $(this).addClass("active");
+            })
+
+            $(".attr,.attr2").on("click",function(){
+                var clase = $(this).attr("class");
+
+                $("." + clase).removeClass("active");
+                $(this).addClass("active");
+            })
+
+            //-- Click on QUANTITY
+            $(".btn-minus").on("click",function(){
+                var now = $(".section > div > input").val();
+                if ($.isNumeric(now)){
+                    if (parseInt(now) -1 > 0){ now--;}
+                    $(".section > div > input").val(now);
+                }else{
+                    $(".section > div > input").val("1");
+                }
+            })            
+            $(".btn-plus").on("click",function(){
+                var now = $(".section > div > input").val();
+                if ($.isNumeric(now)){
+                    $(".section > div > input").val(parseInt(now)+1);
+                }else{
+                    $(".section > div > input").val("1");
+                }
+            })                        
+        }) 
+</script>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(e) {
+      $('#image').change(function() {
+          let reader = new FileReader();
+          reader.onload = (e) => {
+              $('#preview-image-before-upload').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(this.files[0]);
+      });
+
+      // Hide Message After 5 Sec
+      $("#successMessage").delay(5000).slideUp(300);
+
+      //add more fields group
+      $(".addMore").click(function() {
+          var fieldHTML = '<div class="row prices g-0" style="margin-top:5px!important">' +
+              $(".pricesCopy").html() + '</div>';
+          $('body').find('.prices:last').after(fieldHTML);
+      });
+
+      //remove fields group
+      $("body").on("click", ".remove", function() {
+          $(this).parents(".prices").remove();
+      });
+  });
+
+  // Delete Price List Data
+  $('.deleteRecord').click(function() {
+
+      var price_id = $(this).data('id');
+      var token = $("meta[name='csrf-token']").attr("content");
+
+      $.ajax({
+          type: "POST",
+          dataType: "json",
+          cache: false,
+          url: "{{ url('products/product/price-list') }}/" + price_id,
+          data: {
+              'price_id': price_id,
+              '_token': token,
+          },
+          beforeSend: function() {
+              return confirm("Are you sure want to delete this price ?");
+          },
+
+          success: function(data) {
+              $(".del_row" + price_id).remove();
+              $("#successMessage").html(data.success).show().delay(3000).fadeOut(400);
+          }
+      });
+  })
+</script>

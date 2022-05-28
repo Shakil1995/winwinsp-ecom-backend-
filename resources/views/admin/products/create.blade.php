@@ -59,20 +59,24 @@
                     <div class="row prices p-3">
                         <label for="price" class="col-md-2 col-form-label">Price</label>
                         <div class="row col-md-10">
-                            <div class="col-md-6 col-12 g-0" style="padding-right:5px!important">
+                            
+                            <div class="col-md-8 col-12 g-0" style="padding-right:5px!important">
+                                <label for="price_type_id" class="form-label">Product Price Type</label>
                                 <select class="form-select form-control" name="price_type_id[]" id="price_type_id">
                                     <option value="" selected>Select Price Type</option>
-                                    {{-- @foreach ($priceTypes as $ptype)
+                                    @foreach ($price_types as $ptype)
                                     <option value="{{ $ptype['id'] }}">{{ $ptype['name'] }}</option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
                             </div>
 
-                            <div class="col-12 col-md-4 g-0" style="padding-right:5px!important">
+                            <div class="col-12 col-md-2 g-0" style="padding-right:5px!important">
+                                <label for="amount" class="form-label">Price</label>
                                 <input type="number" min="0" class="form-control" name="amount[]" id="amount" placeholder="Price"
                                         value="{{ old('amount[]') }}">
                             </div>
 
+                        
                             <div class="col-12 col-md-2 d-flex align-items-end g-0">
                                 <a href="javascript:void(0)" class="btn btn-success addMore"><span class="glyphicon glyphicon glyphicon-plus"
                                         aria-hidden="true"></span> Add More</a>
@@ -115,7 +119,8 @@
     <div class="row pricesCopy p-3" style="display: none;">
         <label for="category" class="col-md-2 col-form-label"></label>
         <div class="row col-md-10">
-            <div class="col-md-6 col-12 g-0" style="padding-right:5px!important">
+            <div class="col-md-8 col-12 g-0" style="padding-right:5px!important">
+                <label for="price_type_id" class="form-label">Product Price Type</label>
                 <select class="form-select form-control" name="price_type_id[]" id="price_type_id">
                     <option value="" selected>Select Price Type</option>
                     @foreach ($price_types as $ptype)
@@ -124,10 +129,12 @@
                 </select>
             </div>
 
-            <div class="col-12 col-md-4 g-0" style="padding-right:5px!important">
+            <div class="col-12 col-md-2 g-0" style="padding-right:5px!important">
+                <label for="amount" class="form-label">Price</label>
                 <input type="number" min="0" class="form-control" name="amount[]" id="amount" placeholder="Price"
                         value="{{ old('amount[]') }}">
             </div>
+         
 
             <div class="col-md-2 col-12 d-flex align-items-end g-0">
                 <a href="javascript:void(0)" class="btn btn-danger remove"><span class="glyphicon glyphicon glyphicon-remove"

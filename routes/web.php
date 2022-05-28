@@ -49,6 +49,8 @@ Route::controller(ProductController::class)->prefix('products')->as('products.')
     Route::get('/{product}/edit', 'edit')->name('edit');
     Route::get('/{product}/change-status', 'toggleStatus')->name('toggleStatus');
 
+    Route::post('product/price-list/{price_id}', 'priceListDestroy'); 
+
     // Route::get('/trashed/index', 'trashedIndex')->name('trashedIndex');
     // Route::get('/trashed/{id}/restore', 'trashedRestore')->name('trashedRestore');
     // Route::delete('/trashed/{id}/force-delete', 'forceDelete')->name('forceDelete');
