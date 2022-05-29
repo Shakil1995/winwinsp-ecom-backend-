@@ -1,8 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
-
 
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -60,7 +57,6 @@
                 </form>
             </td>
             <td>
-               
                 <div class="btn-group" role="group">
                   <a href="{{ route('categories.show', $category->id) }}"class="btn btn-primary me-1"> <i class="fa fa-eye"></i></a>
                   <a href="{{ route('categories.edit', $category->id) }}"  class="btn btn-success me-1"><i class="fa fa-edit"></i></a>
@@ -72,11 +68,9 @@
               </div>
             </td>
         </tr>
-    @endforeach
+       @endforeach
           
     </tbody>
-  
 </table>
-
 
 @endsection
